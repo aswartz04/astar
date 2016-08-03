@@ -1,5 +1,6 @@
 ##Adjacency matrix for the city of Seattle that will be used for finding routes.  
 #For each city, adjacent nodes have a distance metric in miles.
+##Includes latitude and longitude points for the cities.
 
 cities <- c("Seattle","Mercer Island","Bellevue","Redmond","Renton","Newcastle",
             "Kent","Auburn","Tacoma","Fife","Artondale","Purdy","Bermerton",
