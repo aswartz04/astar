@@ -1,31 +1,39 @@
 a.star <- function(start,end,area){
   closedS <- c();openS <- start
   cameFrom <- c()
-  g.score <- c()
-  g.score[1] <- 0
+  g.score <- 0
   f.score <- c()
-  f.score[1] <- 0
+  f.score[1] <- euc.distance(seattle.coord,start,end)
   while(length(openS) > 0){
-    current <- min(openS)
+    current <- openS[min(f.score)]
     if(current==end){
-      reconstruct_path(cameFrom,current)
+      break
     }
-    #remove current from openset
-    #add current to closed set
-    #loop for each neighboring node for current
-      #ignore neighbor that is already evaulated in closed set
-      #otherwise make a tentative gscore for the neighbors
-      #if the neighbor is not in the openset then add it
-      #otherwise if the tentative score is greater than the gscore, skip it
-      #now camefrom is set to current, gscore is the tentative score, fscore is this distance plus the heuristic
-  }
-  #visited
-  reconstruct_path <- function(cameFrom,current){
-    total.path <- current
-    while(current in cameFrom){
-      current <- cameFrom[cameFrom==current]
-      total.path <- c(total.path,current)
+    openS <- openS[-(openS==current)]
+    closedS <- c(closedS,current)
+    for(i in 1:nrow(area)){
+      if(is.element(colnames(area)[i],closedS)){
+        next
+      }
+      tentative.g.score <- g.score + area[current,i]
+      if(!is.na(area[i,current]) & !is.element(colnames(area)[i],openS)){
+        openS <- c(openS,colnames(area[i]))
+      }
+      else if(tentative.g.score >= g.score){
+        next
+      }
+      cameFrom <- c(cameFrom,current)
+      g.score <- tentative.g.score
+      f.score <- g.score + euc.distance(seattle.coord,colnames(area)[i],end)
     }
-    total.path
   }
+  reconstruct_path(cameFrom,current)
+}
+reconstruct_path <- function(cameFrom,current){
+  total.path <- current
+  while(is.element(current,cameFrom)){
+    current <- cameFrom[cameFrom==current]
+    total.path <- c(total.path,current)
+  }
+  total.path
 }
