@@ -1,11 +1,10 @@
 a.star <- function(start,end,area){
   closedS <- c();openS <- start
   cameFrom <- c()
-  g.score <- NA
-  g.score[start] <- 0
-  f.score <- NA
-  f.score[start] <- 40
-  #while
+  g.score <- c()
+  g.score[1] <- 0
+  f.score <- c()
+  f.score[1] <- 0
   while(length(openS) > 0){
     current <- min(openS)
     if(current==end){
