@@ -1,9 +1,11 @@
 a.star <- function(start,end,area){
   closedS <- c();openS <- start
   cameFrom <- c()
-  g.score <- 0
-  f.score <- c()
-  f.score[1] <- euc.distance(seattle.coord,start,end)
+  g.score <- rep(0,ncol(area))
+  names(g.score) <- colnames(area)
+  f.score <- rep(0,ncol(area))
+  names(f.score) <- colnames(area)
+  f.score[start] <- euc.distance(seattle.coord,start,end)
   while(length(openS) > 0){
     current <- openS[min(f.score)]
     if(current==end){
