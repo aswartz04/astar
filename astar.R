@@ -7,7 +7,7 @@ a.star <- function(start,end,area){
   names(f.score) <- colnames(area)
   f.score[start] <- euc.distance(seattle.coord,start,end)
   while(length(openS) > 0){
-    current <- openS[min(f.score)]
+    current <- openS[min(f.score[f.score>0])]
     if(current==end){
       break
     }
