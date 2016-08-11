@@ -44,5 +44,3 @@ reconstruct_path <- function(cameFrom,current){
   }
   total.path
 }
-
-a.star("Seattle","Bothell",seattle)
