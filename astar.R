@@ -9,19 +9,16 @@ a.star <- function(start,end,area){
   f.score[start] <- euc.distance(seattle.coord,start,end)
   while(length(openS) > 0){
     current <- names(f.score[f.score==min(f.score[names(f.score)%in%openS])])
-    print(current)
     if(current==end){
       break
     }
     openS <- openS[!openS%in%current]
     closedS <- c(closedS,current)
-    print(closedS)
     for(i in 1:nrow(area)){
       if(is.na(area[i,current]) || is.element(colnames(area)[i],closedS)){
         next
       }
       tentative.g.score <- g.score[current] + area[current,i]
-      print(tentative.g.score >= g.score[i])
       if(!is.na(area[i,current]) & !is.element(colnames(area)[i],openS)){
         openS <- c(openS,colnames(area)[i])
       }
@@ -31,16 +28,19 @@ a.star <- function(start,end,area){
       cameFrom[i] <- current
       g.score[i] <- tentative.g.score
       f.score[i] <- g.score[i] + euc.distance(seattle.coord,colnames(area)[i],end)
-      print(cameFrom)
     }
   }
   reconstruct_path(cameFrom,current)
 }
 reconstruct_path <- function(cameFrom,current){
   total.path <- current
-  while(is.element(current,cameFrom)){
-    current <- cameFrom[cameFrom==current]
-    total.path <- c(total.path,current)
+  while(is.element(current,names(cameFrom))){
+    current <- cameFrom[current]
+    if(!is.na(current)){
+      total.path <- c(current[[1]],total.path) 
+    }
   }
   total.path
 }
+
+a.star("Seattle","Bothell",seattle)
