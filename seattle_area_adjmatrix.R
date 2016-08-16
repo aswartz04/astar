@@ -44,5 +44,6 @@ coord <- c(47.6062,-122.3321,47.5707,-122.2221,47.6104,-122.2007,47.674,-122.121
            47.5287,-121.8254,47.4754,-121.7462)
 
 seattle.coord <- matrix(coord,ncol=2,byrow=T)
+seattle.coord <- seattle.coord[,c(2,1)]
 rownames(seattle.coord) <- cities
-colnames(seattle.coord) <- c("lat","lon")
+colnames(seattle.coord) <- c("lon","lat")
