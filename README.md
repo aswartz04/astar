@@ -6,6 +6,17 @@ Hello, and welcome to **AStar** using **R**!  There are many components required
 
 My implementation uses cities on a map, one of the more obvious uses for AStar.  I chose to use the Seattle area, with most major cities in the area included.  In the future I may decide to add more.
 
-**Using AStar.** For use in R, there are several user-defined functions that need to be ran before finding routes between cities.  At the very least, run the entirety of **astar.R**, **hdistance.R**, and **seattle_area_adjmatrix.R**.  
+**Using AStar.** For use in R, there are several user-defined functions that need to be run before finding routes between cities.  At the very least, run the entirety of **astar.R**, **hdistance.R**, and **seattle_area_adjmatrix.R**.  Once all of that is processed, the only UDF you need to worry about is 'astar(start,end,area)', a function that takes three arguments.  The input for *start* and *end* are simply the city of origin and the destination, but *area* refers to the adjacency matrix that includes all of the cities that I have accounted for so far.  The last argument will always be filled in with **seattle**.  One example is below.
 
-More to come later.
+'''
+astar("Seattle","Bothell",seattle)
+'''
+
+There is a visual component available alongisde simply having the best route shown to you.  First, run **route_visual.R**.  Make sure you have the package **ggmap** installed.  The UDF in this case is 'mapped_route(coordinate,route,city,zoom)'.  The argument "coordinates" needs a matrix of longitude and latitude values which have been provided.  Simply enter *seattle.coord* here.  You should assign the previous astar function as a variable, and include that for "route."  The "city" is recommended to be "Seattle," and the "zoom" is best at 9.  One example is below.
+
+'''
+one.path <- astar("Seattle","Bothell",seattle)
+mapped_route(seattle.coord,one.path,"Seattle",9)
+'''
+
+**Other Uses for AStar.**  This section will provide information on how to use AStar for your own personal cities.
